@@ -1,0 +1,70 @@
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #f4f7fc;
+}
+
+nav {
+background: #1e3a8a;
+padding: 15px;
+}
+
+nav a {
+color: white;
+text-decoration: none;
+margin-right: 20px;
+font-weight: bold;
+}
+
+.hero {
+text-align: center;
+padding: 80px 20px;
+}
+
+.hero h1 {
+color: #1e3a8a;
+font-size: 48px;
+}
+
+.hero p {
+font-size: 20px;
+color: #555;
+}
+
+.btn {
+background: #2563eb;
+color: white;
+padding: 12px 25px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+}
+
+.form-container {
+width: 350px;
+margin: 50px auto;
+background: white;
+padding: 25px;
+border-radius: 10px;
+box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+}
+
+.form-container h2 {
+text-align: center;
+color: #1e3a8a;
+}
+
+.form-container input {
+width: 100%;
+padding: 10px;
+margin: 8px 0;
+}
+
+.form-container button {
+width: 100%;
+background: #2563eb;
+color: white;
+border: none;
+padding: 12px;
+cursor: pointer;
+}
