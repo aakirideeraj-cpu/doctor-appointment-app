@@ -10,6 +10,7 @@ The Healthcare Appointment Management System is a web application designed to si
 - Responsive UI
 
 ## 🛠️ Tech Stack
+- Vite
 - React.js
 - HTML, CSS, JavaScript
 - React Router
