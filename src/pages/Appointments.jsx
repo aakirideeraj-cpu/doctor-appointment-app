@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 function Appointments() {
   const navigate = useNavigate();
 
+  const doctors =
+    JSON.parse(localStorage.getItem("doctors")) || [];
+
   const [formData, setFormData] = useState({
     patientName: "",
     doctor: "",
@@ -82,10 +85,18 @@ function Appointments() {
             onChange={handleChange}
             required
           >
-            <option value="">Select Doctor</option>
-            <option>Dr. Ravi Kumar</option>
-            <option>Dr. Priya Sharma</option>
-            <option>Dr. Arjun</option>
+            <option value="">
+              Select Doctor
+            </option>
+
+            {doctors.map((doctor) => (
+              <option
+                key={doctor.id}
+                value={doctor.name}
+              >
+                {doctor.name}
+              </option>
+            ))}
           </select>
 
           <input
@@ -106,7 +117,7 @@ function Appointments() {
 
           <button type="submit">
             Book Appointment
-          </button>
+          </button> 
         </form>
       </div>
     </>
