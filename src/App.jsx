@@ -7,12 +7,13 @@ import Doctors from "./pages/Doctors";
 import Appointments from "./pages/Appointments";
 import Profile from "./pages/Profile";
 import MyAppointments from "./pages/MyAppointments";
+import Admin from "./pages/Admin";
+import DoctorPanel from "./pages/DoctorPanel";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         <Route
           path="/"
           element={<Home />}
@@ -28,25 +29,37 @@ function App() {
           element={<Signup />}
         />
 
-<Route path="/doctors" element={<Doctors />} />
+        <Route
+          path="/doctors"
+          element={<Doctors />}
+        />
 
-<Route
-  path="/appointments"
-  element={<Appointments />}
-/>
+        <Route
+          path="/appointments"
+          element={<Appointments />}
+        />
 
-<Route
-  path="/myappointments"
-  element={<MyAppointments />}
-/>
+        <Route
+          path="/myappointments"
+          element={<MyAppointments />}
+        />
 
-<Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={<Profile />}
+        />
 
+        <Route
+          path="/doctorpanel"
+          element={<DoctorPanel />}
+        />
 
+        <Route
+          path="/admin"
+          element={<Admin />}
+        />
       </Routes>
     </BrowserRouter>
-    
-
   );
 }
 

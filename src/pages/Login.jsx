@@ -1,7 +1,10 @@
 import Navbar from "../components/Navbar";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,7 +16,30 @@ function Login() {
       return;
     }
 
-    alert(`Welcome Back, ${email}!`);
+    const savedUser = JSON.parse(
+      localStorage.getItem("user")
+    );
+
+    if (!savedUser) {
+      alert("No account found. Please Sign Up first.");
+      return;
+    }
+
+    if (
+      email === savedUser.email &&
+      password === savedUser.password
+    ) {
+      localStorage.setItem("isLoggedIn", "true");
+
+      alert(`Welcome Back, ${savedUser.name}!`);
+
+      setEmail("");
+      setPassword("");
+
+      navigate("/");
+    } else {
+      alert("Invalid Email or Password");
+    }
   };
 
   return (
@@ -38,7 +64,9 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button type="submit">Login</button>
+          <button type="submit">
+            Login
+          </button>
         </form>
       </div>
     </>

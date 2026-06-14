@@ -4,34 +4,49 @@ import { useState } from "react";
 
 function Doctors() {
   const navigate = useNavigate();
+
   const [search, setSearch] = useState("");
 
-  const doctors = [
+  const defaultDoctors = [
     {
       id: 1,
       name: "Dr. Ravi Kumar",
       specialization: "Cardiologist",
       experience: "10 Years",
+      status: "Available",
     },
     {
       id: 2,
       name: "Dr. Priya Sharma",
       specialization: "Dermatologist",
       experience: "8 Years",
+      status: "Available",
     },
     {
       id: 3,
       name: "Dr. Arjun",
       specialization: "Orthopedic",
       experience: "12 Years",
+      status: "Available",
     },
-    
   ];
+
+  const adminDoctors =
+    JSON.parse(localStorage.getItem("doctors")) || [];
+
+  const doctors =
+    adminDoctors.length > 0
+      ? adminDoctors
+      : defaultDoctors;
 
   const filteredDoctors = doctors.filter(
     (doctor) =>
-      doctor.name.toLowerCase().includes(search.toLowerCase()) ||
-      doctor.specialization.toLowerCase().includes(search.toLowerCase())
+      doctor.name
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      doctor.specialization
+        .toLowerCase()
+        .includes(search.toLowerCase())
   );
 
   return (
@@ -45,13 +60,18 @@ function Doctors() {
           type="text"
           placeholder="Search by doctor name or specialization..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) =>
+            setSearch(e.target.value)
+          }
           className="search-box"
         />
 
         <div className="doctor-grid">
           {filteredDoctors.map((doctor) => (
-            <div className="doctor-card" key={doctor.id}>
+            <div
+              className="doctor-card"
+              key={doctor.id}
+            >
               <h2>{doctor.name}</h2>
 
               <p>
@@ -61,13 +81,25 @@ function Doctors() {
 
               <p>
                 <strong>Experience:</strong>{" "}
-                {doctor.experience}
+                {doctor.experience || "N/A"}
+              </p>
+
+              <p>
+                <strong>Status:</strong>{" "}
+                {doctor.status || "Available"}
               </p>
 
               <button
-                onClick={() => navigate("/appointments")}
+                disabled={
+                  doctor.status === "Busy"
+                }
+                onClick={() =>
+                  navigate("/appointments")
+                }
               >
-                Book Appointment
+                {doctor.status === "Busy"
+                  ? "Doctor Busy"
+                  : "Book Appointment"}
               </button>
             </div>
           ))}

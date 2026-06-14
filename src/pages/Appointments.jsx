@@ -1,7 +1,10 @@
 import Navbar from "../components/Navbar";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Appointments() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     patientName: "",
     doctor: "",
@@ -19,6 +22,29 @@ function Appointments() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const existingAppointments =
+      JSON.parse(
+        localStorage.getItem("appointments")
+      ) || [];
+
+    const newAppointment = {
+      id: Date.now(),
+      patientName: formData.patientName,
+      doctor: formData.doctor,
+      date: formData.date,
+      time: formData.time,
+    };
+
+    const updatedAppointments = [
+      ...existingAppointments,
+      newAppointment,
+    ];
+
+    localStorage.setItem(
+      "appointments",
+      JSON.stringify(updatedAppointments)
+    );
+
     alert(
       `Appointment Booked Successfully!\n\nPatient: ${formData.patientName}\nDoctor: ${formData.doctor}`
     );
@@ -29,6 +55,8 @@ function Appointments() {
       date: "",
       time: "",
     });
+
+    navigate("/myappointments");
   };
 
   return (

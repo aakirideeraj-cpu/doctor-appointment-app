@@ -2,24 +2,20 @@ import Navbar from "../components/Navbar";
 import { useState } from "react";
 
 function MyAppointments() {
-  const [appointments, setAppointments] = useState([
-    {
-      id: 1,
-      doctor: "Dr. Ravi Kumar",
-      date: "2026-06-05",
-      time: "10:00 AM",
-    },
-    {
-      id: 2,
-      doctor: "Dr. Priya Sharma",
-      date: "2026-06-07",
-      time: "03:00 PM",
-    },
-  ]);
+  const [appointments, setAppointments] = useState(
+    JSON.parse(localStorage.getItem("appointments")) || []
+  );
 
   const cancelAppointment = (id) => {
-    setAppointments(
-      appointments.filter((appointment) => appointment.id !== id)
+    const updatedAppointments = appointments.filter(
+      (appointment) => appointment.id !== id
+    );
+
+    setAppointments(updatedAppointments);
+
+    localStorage.setItem(
+      "appointments",
+      JSON.stringify(updatedAppointments)
     );
 
     alert("Appointment Cancelled Successfully!");
@@ -32,23 +28,41 @@ function MyAppointments() {
       <div className="appointments-container">
         <h1>My Appointments</h1>
 
-        {appointments.map((appointment) => (
-          <div className="appointment-card" key={appointment.id}>
-            <h3>{appointment.doctor}</h3>
-
-            <p>Date: {appointment.date}</p>
-
-            <p>Time: {appointment.time}</p>
-
-            <button
-              onClick={() =>
-                cancelAppointment(appointment.id)
-              }
+        {appointments.length === 0 ? (
+          <p>No Appointments Booked Yet.</p>
+        ) : (
+          appointments.map((appointment) => (
+            <div
+              className="appointment-card"
+              key={appointment.id}
             >
-              Cancel Appointment
-            </button>
-          </div>
-        ))}
+              <h3>{appointment.doctor}</h3>
+
+              <p>
+                <strong>Patient:</strong>{" "}
+                {appointment.patientName}
+              </p>
+
+              <p>
+                <strong>Date:</strong>{" "}
+                {appointment.date}
+              </p>
+
+              <p>
+                <strong>Time:</strong>{" "}
+                {appointment.time}
+              </p>
+
+              <button
+                onClick={() =>
+                  cancelAppointment(appointment.id)
+                }
+              >
+                Cancel Appointment
+              </button>
+            </div>
+          ))
+        )}
       </div>
     </>
   );

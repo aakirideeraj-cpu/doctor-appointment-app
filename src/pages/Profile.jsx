@@ -1,6 +1,10 @@
 import Navbar from "../components/Navbar";
 
 function Profile() {
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
+
   return (
     <>
       <Navbar />
@@ -9,11 +13,25 @@ function Profile() {
         <h1>Patient Profile</h1>
 
         <div className="profile-card">
-          <p><strong>Name:</strong> Aakiri Deeraj</p>
-          <p><strong>Age:</strong> 19</p>
-          <p><strong>Email:</strong> deeraj@gmail.com</p>
-          <p><strong>Phone:</strong> 9876543210</p>
-          <p><strong>Blood Group:</strong> O+</p>
+          <p>
+            <strong>Name:</strong>{" "}
+            {user?.name || "Not Available"}
+          </p>
+
+          <p>
+            <strong>Email:</strong>{" "}
+            {user?.email || "Not Available"}
+          </p>
+
+          <p>
+            <strong>Phone:</strong>{" "}
+            {user?.phone || "Not Available"}
+          </p>
+
+          <p>
+            <strong>Registered On:</strong>{" "}
+            {user?.registeredAt || "Not Available"}
+          </p>
         </div>
       </div>
     </>

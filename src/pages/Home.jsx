@@ -1,6 +1,9 @@
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Navbar />
@@ -12,7 +15,12 @@ function Home() {
           Book appointments with doctors quickly and efficiently.
         </p>
 
-        <button className="btn">Book Appointment</button>
+        <button
+          className="btn"
+          onClick={() => navigate("/appointments")}
+        >
+          Book Appointment
+        </button>
 
         <h2>Features</h2>
 
